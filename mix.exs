@@ -9,8 +9,9 @@ defmodule Cuidapet.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
+      # elixirc_options: [debug_info: Mix.env() == :dev],
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
     ]
   end
 
@@ -42,7 +43,9 @@ defmodule Cuidapet.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:guardian, "~> 2.0"},
+      {:argon2_elixir, "~> 2.0"}
     ]
   end
 

@@ -5,8 +5,30 @@ defmodule CuidapetWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug CuidapetWeb.Auth.Pipeline
+  end
+
   scope "/api", CuidapetWeb do
     pipe_through :api
+
+    # resources "/user", UsersController, except: [:edit, :new]
+  end
+
+  scope "/", CuidapetWeb do
+    pipe_through [:api, :auth]
+
+    # get "/user/users", UserController, :index
+    get "/user/:id", UserController, :show
+    put "/user/:id", UserController, :update
+    delete "/user/:id", UserController, :delete
+  end
+
+  scope "/", CuidapetWeb do
+    pipe_through :api
+
+    post "/user", UserController, :create
+    post "/user/signin", UserController, :sign_in
   end
 
   # Enables LiveDashboard only for development

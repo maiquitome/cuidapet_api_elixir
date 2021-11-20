@@ -11,6 +11,19 @@ config :cuidapet,
   ecto_repos: [Cuidapet.Repo],
   generators: [binary_id: true]
 
+config :cuidapet, Cuidapet.Repo,
+  migration_primary_key: [type: :binary_id],
+  migration_foreign_key: [type: :binary_id]
+
+# Auth
+config :cuidapet, CuidapetWeb.Auth.Guardian,
+  issuer: "cuidapet",
+  secret_key: System.get_env("SECRET_KEY")
+
+config :cuidapet, CuidapetWeb.Auth.Pipeline,
+  module: CuidapetWeb.Auth.Guardian,
+  error_handler: CuidapetWeb.Auth.ErrorHandler
+
 # Configures the endpoint
 config :cuidapet, CuidapetWeb.Endpoint,
   url: [host: "localhost"],
