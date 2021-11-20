@@ -3,6 +3,7 @@ defmodule CuidapetWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CuidapetWeb.Plugs.UUIDChecker
   end
 
   pipeline :auth do
