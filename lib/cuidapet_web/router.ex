@@ -8,6 +8,7 @@ defmodule CuidapetWeb.Router do
 
   pipeline :auth do
     plug CuidapetWeb.Auth.Pipeline
+    plug CuidapetWeb.Plugs.TokenRefresh
   end
 
   scope "/api", CuidapetWeb do

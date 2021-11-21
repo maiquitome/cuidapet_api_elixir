@@ -16,7 +16,8 @@ defmodule CuidapetWeb.UserController do
 
   def create(conn, params) do
     with {:ok, %User{} = user} <- Cuidapet.create_user(params),
-         {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+         {:ok, token, _claims} <-
+           Guardian.encode_and_sign(user, %{}, ttl: {15, :minute}) do
       conn
       |> put_status(:created)
       |> render("create.json", token: token, user: user)
