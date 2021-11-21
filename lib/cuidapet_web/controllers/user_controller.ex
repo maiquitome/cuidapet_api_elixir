@@ -6,7 +6,7 @@ defmodule CuidapetWeb.UserController do
 
   action_fallback FallbackController
 
-  def sign_in(conn, %{"id" => _id, "password" => _password} = params) do
+  def sign_in(conn, %{"email" => _email, "password" => _password} = params) do
     with {:ok, token} <- Guardian.authenticate(params) do
       conn
       |> put_status(:ok)

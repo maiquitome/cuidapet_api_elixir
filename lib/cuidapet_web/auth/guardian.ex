@@ -14,8 +14,8 @@ defmodule CuidapetWeb.Auth.Guardian do
     |> UserGet.by_id()
   end
 
-  def authenticate(%{"id" => user_id, "password" => password}) do
-    with {:ok, %User{password_hash: hash} = user} <- UserGet.by_id(user_id),
+  def authenticate(%{"email" => user_email, "password" => password}) do
+    with {:ok, %User{password_hash: hash} = user} <- UserGet.by_email(user_email),
          true <- Argon2.verify_pass(password, hash),
          {:ok, token, _claims} <-
            encode_and_sign(user, %{}, ttl: {15, :minute}) do
